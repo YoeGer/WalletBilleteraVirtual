@@ -55,60 +55,64 @@ export default {
   name: 'RegistroVista',
   data() {
     return {
-      transaccion: null,
-      cripto: null,
+      transaccion: '',
+      cripto: '',
       cantidad: '',
       precio: '',
-      fecha: null,
-      hora: null,
+      fecha: '',
+      hora: '',
     };
   },
   methods: {
-    envioForm() {
+    validarDatosForm() {
       if (
-        this.transaccion === null ||
-        this.cripto === null ||
-        this.fecha === null ||
-        this.hora === null ||
+        this.transaccion === '' ||
+        this.cripto === '' ||
+        this.fecha === '' ||
         this.cantidad === '' ||
-        this.precio === ''
+        this.precio === '' ||
+        this.hora === ''
       ) {
         alert('Debe completar todos los campos para poder registrar la operacion');
-        return;
+        return false;
       }
       if (this.cantidad < 0 || this.precio < 0) {
         alert('Datos incorrectos');
-        return;
+        return false;
       }
       let fechaActual = new Date();
       let fechaIngresada = new Date(this.fecha);
-
       if (fechaIngresada > fechaActual) {
         alert('Fecha incorrecta');
-        return;
+        return false;
       }
-      Consultas.guardarTransacciones({
-        user_id: 'Yoana',
-        action: this.transaccion,
-        crypto_code: this.cripto,
-        crypto_amount: this.cantidad.toString(),
-        money: this.precio.toString(),
-        datetime: this.fecha + ' ' + this.hora,
-      })
-        .then((respuesta) => {
-          alert('Transaccion registrada con exito');
-          console.log(respuesta);
-          this.transaccion = null;
-          this.cripto = null;
-          this.cantidad = '';
-          this.precio = '';
-          this.fecha = null;
-          this.hora = null;
+      return true;
+    },
+    envioForm() {
+      if (this.validarDatosForm()) {
+        Consultas.guardarTransacciones({
+          user_id: 'Yoana',
+          action: this.transaccion,
+          crypto_code: this.cripto,
+          crypto_amount: this.cantidad.toString(),
+          money: this.precio.toString(),
+          datetime: this.fecha + ' ' + this.hora,
         })
-        .catch((error) => {
-          alert('No se pudo registrar la transaccion');
-          console.log(error);
-        });
+          .then((respuesta) => {
+            alert('Transaccion registrada con exito');
+            console.log(respuesta);
+            this.transaccion = '';
+            this.cripto = '';
+            this.cantidad = '';
+            this.precio = '';
+            this.fecha = '';
+            this.hora = '';
+          })
+          .catch((error) => {
+            alert('No se pudo registrar la transaccion');
+            console.log(error);
+          });
+      }
     },
   },
 };

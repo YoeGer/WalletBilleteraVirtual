@@ -16,42 +16,22 @@
   </div>
 </template>
 <script>
-import MovimientoComponente from "@/components/MovimientoComponente.vue";
-
+import MovimientoComponente from '@/components/MovimientoComponente.vue';
+import Consultas from '@/servicios/Consultas.js';
 export default {
-  name: "HistorialVista",
+  name: 'HistorialVista',
   components: {
     MovimientoComponente,
   },
   data() {
     return {
-      movimientos: [
-        {
-          user_id: "valor_introducido_login",
-          action: "sale",
-          crypto_code: "usdc",
-          crypto_amount: "1.01",
-          money: "170.98",
-          datetime: "19-07-2021 20:50",
-        },
-        {
-          user_id: "valor_introducido_login",
-          action: "sale",
-          crypto_code: "usdc",
-          crypto_amount: "1.01",
-          money: "170.98",
-          datetime: "19-07-2021 20:50",
-        },
-        {
-          user_id: "valor_introducido_login",
-          action: "sale",
-          crypto_code: "usdc",
-          crypto_amount: "1.01",
-          money: "170.98",
-          datetime: "19-07-2021 20:50",
-        },
-      ],
+      movimientos: null,
     };
+  },
+  created() {
+    Consultas.recuperarTransacciones().then((respuesta) => {
+      this.movimientos = respuesta.data;
+    });
   },
 };
 </script>

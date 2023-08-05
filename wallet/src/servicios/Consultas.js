@@ -7,4 +7,7 @@ export default {
   guardarTransacciones(datos) {
     return apiClient.post('/transactions', datos);
   },
+  recuperarTransacciones() {
+    return apiClient.get('/transactions?q={"user_id": "Yoana"}');
+  },
 };
