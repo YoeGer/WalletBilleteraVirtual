@@ -8,11 +8,9 @@
       <div class="col">Fecha y hora</div>
       <div class="col"></div>
     </div>
-    <MovimientoComponente
-      v-for="movimiento in movimientos"
-      :key="movimiento.user_id"
-      :movimiento="movimiento"
-    />
+    <div v-for="movimiento in movimientos" :key="movimiento._id">
+      <MovimientoComponente :movimiento="movimiento" />
+    </div>
   </div>
 </template>
 <script>
@@ -25,13 +23,17 @@ export default {
   },
   data() {
     return {
-      movimientos: null,
+      movimientos: [],
     };
   },
   created() {
-    Consultas.recuperarTransacciones().then((respuesta) => {
-      this.movimientos = respuesta.data;
-    });
+    Consultas.recuperarTransacciones()
+      .then((respuesta) => {
+        this.movimientos = respuesta.data;
+      })
+      .catch((error) => {
+        console.error('Error al recuperar las transacciones:', error);
+      });
   },
 };
 </script>
