@@ -11,29 +11,44 @@
           <button
             type="button"
             class="btn btn-info btn-sm me-2"
-            @click="pasarMovimiento(movimiento)"
+            @click="pasarDatosALectura(movimiento)"
           >
             Leer
           </button>
-          <button type="button" class="btn btn-info btn-sm me-2">Editar</button>
+          <button
+            type="button"
+            class="btn btn-info btn-sm me-2"
+            @click="pasarDatosAEdicion(movimiento)"
+          >
+            Editar
+          </button>
           <button type="button" class="btn btn-info btn-sm">Eliminar</button>
         </div>
       </div>
     </div>
     <LecturaComponente
-      :estaAbierto="popupVisible"
+      :estaAbiertoLectura="popupLecturaVisible"
       :movimiento="movimientoSeleccionado"
-      @cerrar="popupVisible = false"
+      @cerrarLectura="popupLecturaVisible = false"
+    />
+    <EdicionComponente
+      :estaAbiertoForm="popupFormVisible"
+      :movimiento="movimientoSeleccionado"
+      @cerrarEdicion="popupFormVisible = false"
+      @modificacionExitosa="actualizarHistorial"
     />
   </div>
 </template>
 <script>
 import LecturaComponente from '@/components/LecturaComponente.vue';
+import EdicionComponente from '@/components/EdicionComponente.vue';
 import { computadaFormatearFecha } from '@/mixins/computadaFormatearFecha.js';
+
 export default {
   name: 'MovimientoComponente',
   components: {
     LecturaComponente,
+    EdicionComponente,
   },
   mixins: [computadaFormatearFecha],
   props: {
@@ -42,13 +57,21 @@ export default {
   data() {
     return {
       movimientoSeleccionado: null,
-      popupVisible: false,
+      popupLecturaVisible: false,
+      popupFormVisible: false,
     };
   },
   methods: {
-    pasarMovimiento(movimiento) {
+    pasarDatosALectura(movimiento) {
       this.movimientoSeleccionado = movimiento;
-      this.popupVisible = true;
+      this.popupLecturaVisible = true;
+    },
+    pasarDatosAEdicion(movimiento) {
+      this.movimientoSeleccionado = movimiento;
+      this.popupFormVisible = true;
+    },
+    actualizarHistorial() {
+      this.$emit('actualizar');
     },
   },
 };

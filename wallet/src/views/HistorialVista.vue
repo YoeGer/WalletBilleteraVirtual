@@ -9,7 +9,7 @@
       <div class="col"></div>
     </div>
     <div v-for="movimiento in movimientos" :key="movimiento._id">
-      <MovimientoComponente :movimiento="movimiento" />
+      <MovimientoComponente :movimiento="movimiento" @actualizar="actualizar" />
     </div>
   </div>
 </template>
@@ -27,13 +27,18 @@ export default {
     };
   },
   created() {
-    Consultas.recuperarTransacciones()
-      .then((respuesta) => {
-        this.movimientos = respuesta.data;
-      })
-      .catch((error) => {
-        console.error('Error al recuperar las transacciones:', error);
-      });
+    this.actualizar();
+  },
+  methods: {
+    actualizar() {
+      Consultas.recuperarTransacciones()
+        .then((respuesta) => {
+          this.movimientos = respuesta.data;
+        })
+        .catch((error) => {
+          console.error('Error al recuperar las transacciones:', error);
+        });
+    },
   },
 };
 </script>

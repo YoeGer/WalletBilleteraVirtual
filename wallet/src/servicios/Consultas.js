@@ -13,4 +13,7 @@ export default {
   recuperarTransaccion(id) {
     return apiClient.get('/transactions/' + id);
   },
+  actualizarTransaccion(id, datos) {
+    return apiClient.patch('/transactions/' + id, datos);
+  },
 };

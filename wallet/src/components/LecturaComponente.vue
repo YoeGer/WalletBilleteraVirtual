@@ -1,5 +1,5 @@
 <template>
-  <div class="popup-overlay" v-if="estaAbierto">
+  <div class="popup-overlay" v-if="estaAbiertoLectura">
     <div class="popup-container">
       <div class="popup-content">
         <h2>Detalle</h2>
@@ -7,11 +7,11 @@
           <strong>Tipo de transacción:</strong>
           {{ movimiento.action === 'purchase' ? 'Compra' : 'Venta' }}
         </div>
-        <div><strong>Tipo de criptomoneda:</strong> {{ movimiento.crypto_code }}</div>
-        <div><strong>Cantidad:</strong> {{ movimiento.crypto_amount }}</div>
-        <div><strong>Precio:</strong> ${{ movimiento.money }}</div>
-        <div><strong>Fecha y hora:</strong> {{ formatearFecha }}</div>
-        <button @click="cerrarPopup" class="close-button btn btn-info">Cerrar</button>
+        <div class="my-2"><strong>Tipo de criptomoneda:</strong> {{ movimiento.crypto_code }}</div>
+        <div class="my-2"><strong>Cantidad:</strong> {{ movimiento.crypto_amount }}</div>
+        <div class="my-2"><strong>Precio:</strong> ${{ movimiento.money }}</div>
+        <div class="my-2"><strong>Fecha y hora:</strong> {{ formatearFecha }}</div>
+        <button @click="cerrarPopupLectura" class="close-button btn btn-info">Cerrar</button>
       </div>
     </div>
   </div>
@@ -20,15 +20,15 @@
 <script>
 import { computadaFormatearFecha } from '@/mixins/computadaFormatearFecha.js';
 export default {
-  name: 'PopupComponent',
+  name: 'LecturaComponente',
   props: {
-    estaAbierto: Boolean,
+    estaAbiertoLectura: Boolean,
     movimiento: Object,
   },
   mixins: [computadaFormatearFecha],
   methods: {
-    cerrarPopup() {
-      this.$emit('cerrar');
+    cerrarPopupLectura() {
+      this.$emit('cerrarLectura');
     },
   },
 };
