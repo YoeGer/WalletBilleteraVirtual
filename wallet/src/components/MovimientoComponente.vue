@@ -22,7 +22,13 @@
           >
             Editar
           </button>
-          <button type="button" class="btn btn-info btn-sm">Eliminar</button>
+          <button
+            type="button"
+            class="btn btn-info btn-sm"
+            @click="pasarDatosAEliminar(movimiento)"
+          >
+            Eliminar
+          </button>
         </div>
       </div>
     </div>
@@ -37,11 +43,18 @@
       @cerrarEdicion="popupFormVisible = false"
       @modificacionExitosa="actualizarHistorial"
     />
+    <EliminarComponente
+      :estaAbiertoEliminar="popupEliminarVisible"
+      :movimiento="movimientoSeleccionado"
+      @cerrarEliminar="popupEliminarVisible = false"
+      @eliminacionExitosa="actualizarHistorial"
+    />
   </div>
 </template>
 <script>
 import LecturaComponente from '@/components/LecturaComponente.vue';
 import EdicionComponente from '@/components/EdicionComponente.vue';
+import EliminarComponente from '@/components/EliminarComponente.vue';
 import { computadaFormatearFecha } from '@/mixins/computadaFormatearFecha.js';
 
 export default {
@@ -49,6 +62,7 @@ export default {
   components: {
     LecturaComponente,
     EdicionComponente,
+    EliminarComponente,
   },
   mixins: [computadaFormatearFecha],
   props: {
@@ -59,6 +73,7 @@ export default {
       movimientoSeleccionado: null,
       popupLecturaVisible: false,
       popupFormVisible: false,
+      popupEliminarVisible: false,
     };
   },
   methods: {
@@ -69,6 +84,10 @@ export default {
     pasarDatosAEdicion(movimiento) {
       this.movimientoSeleccionado = movimiento;
       this.popupFormVisible = true;
+    },
+    pasarDatosAEliminar(movimiento) {
+      this.movimientoSeleccionado = movimiento;
+      this.popupEliminarVisible = true;
     },
     actualizarHistorial() {
       this.$emit('actualizar');

@@ -98,6 +98,7 @@ export default {
   data() {
     return {
       movimiento: {
+        //Lo guardo en un nuevo objeto para poder editarlo
         transaccion: '',
         cripto: '',
         cantidad: '',
@@ -132,6 +133,7 @@ export default {
   },
   methods: {
     enviarForm() {
+      //primero hago las validaciones
       let fechaActual = new Date();
       let fechaIngresada = new Date(this.movimiento.fecha);
       if (
@@ -148,14 +150,17 @@ export default {
       } else if (fechaIngresada > fechaActual) {
         alert('Fecha incorrecta');
       } else if (this.motivo === 'registrarTransaccion') {
+        //Si esta todo ok y vino por registro le envio el movimiento para registrarlo
         this.$emit('envioForm', this.movimiento);
       } else if (this.motivo === 'editarTransaccion') {
+        //Si esta todo ok y vino por modificacion le envio el id y las modificaciones
         this.$emit('modificar', this.movimientoId, this.modificaciones);
       }
     },
     marcarCambio(campo) {
       if (campo === 'transaccion') {
         let nuevoValor = this.movimiento[campo];
+        //Cada vez que se detecta un cambio viene aca y guarda el cambio dentro de las modificaciones como clave valor (campo nuevo valor)
         campo = 'action';
         this.modificaciones[campo] = nuevoValor;
       }

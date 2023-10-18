@@ -16,4 +16,7 @@ export default {
   actualizarTransaccion(id, datos) {
     return apiClient.patch('/transactions/' + id, datos);
   },
+  eliminarTransaccion(id) {
+    return apiClient.delete('/transactions/' + id);
+  },
 };
