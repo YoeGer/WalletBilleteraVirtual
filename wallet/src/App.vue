@@ -17,6 +17,9 @@
         <li class="nav-item">
           <router-link class="nav-link" to="/estado">Estado</router-link>
         </li>
+        <li class="nav-item">
+          <router-link class="nav-link" to="/inversiones">Inversiones</router-link>
+        </li>
       </ul>
     </nav>
     <router-view></router-view>

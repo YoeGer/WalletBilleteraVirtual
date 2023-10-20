@@ -4,6 +4,7 @@ import RegistroVista from '../views/RegistroVista.vue';
 import InicioVista from '../views/InicioVista.vue';
 import HistorialVista from '../views/HistorialVista.vue';
 import EstadoVista from '../views/EstadoVista.vue';
+import InversionesVista from '../views/InversionesVista.vue';
 
 const routes = [
   {
@@ -30,6 +31,11 @@ const routes = [
     path: '/estado',
     name: 'Estado',
     component: EstadoVista,
+  },
+  {
+    path: '/inversiones',
+    name: 'Inversiones',
+    component: InversionesVista,
   },
 ];
 
