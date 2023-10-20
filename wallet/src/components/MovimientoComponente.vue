@@ -1,37 +1,29 @@
 <template>
-  <div>
-    <div class="container-fluid">
-      <div class="row m-3 ms-2">
-        <div class="col">{{ movimiento.action === 'purchase' ? 'Compra' : 'Venta' }}</div>
-        <div class="col">{{ movimiento.crypto_code }}</div>
-        <div class="col">{{ movimiento.crypto_amount }}</div>
-        <div class="col">${{ movimiento.money }}</div>
-        <div class="col">{{ formatearFecha }}</div>
-        <div class="col">
-          <button
-            type="button"
-            class="btn btn-info btn-sm me-2"
-            @click="pasarDatosALectura(movimiento)"
-          >
-            Leer
-          </button>
-          <button
-            type="button"
-            class="btn btn-info btn-sm me-2"
-            @click="pasarDatosAEdicion(movimiento)"
-          >
-            Editar
-          </button>
-          <button
-            type="button"
-            class="btn btn-info btn-sm"
-            @click="pasarDatosAEliminar(movimiento)"
-          >
-            Eliminar
-          </button>
-        </div>
-      </div>
-    </div>
+  <tr>
+    <td>{{ movimiento.action === 'purchase' ? 'Compra' : 'Venta' }}</td>
+    <td>{{ movimiento.crypto_code }}</td>
+    <td>{{ movimiento.crypto_amount }}</td>
+    <td>${{ movimiento.money }}</td>
+    <td>{{ formatearFecha }}</td>
+    <td>
+      <button
+        type="button"
+        class="btn btn-info btn-sm me-2"
+        @click="pasarDatosALectura(movimiento)"
+      >
+        Leer
+      </button>
+      <button
+        type="button"
+        class="btn btn-info btn-sm me-2"
+        @click="pasarDatosAEdicion(movimiento)"
+      >
+        Editar
+      </button>
+      <button type="button" class="btn btn-info btn-sm" @click="pasarDatosAEliminar(movimiento)">
+        Eliminar
+      </button>
+    </td>
     <LecturaComponente
       :estaAbiertoLectura="popupLecturaVisible"
       :movimiento="movimientoSeleccionado"
@@ -49,7 +41,7 @@
       @cerrarEliminar="popupEliminarVisible = false"
       @eliminacionExitosa="actualizarHistorial"
     />
-  </div>
+  </tr>
 </template>
 <script>
 import LecturaComponente from '@/components/LecturaComponente.vue';

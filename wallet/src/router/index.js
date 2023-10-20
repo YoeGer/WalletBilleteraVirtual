@@ -3,6 +3,7 @@ import InicioSesionVista from '../views/InicioSesionVista.vue';
 import RegistroVista from '../views/RegistroVista.vue';
 import InicioVista from '../views/InicioVista.vue';
 import HistorialVista from '../views/HistorialVista.vue';
+import EstadoVista from '../views/EstadoVista.vue';
 
 const routes = [
   {
@@ -24,6 +25,11 @@ const routes = [
     path: '/historial',
     name: 'Historial',
     component: HistorialVista,
+  },
+  {
+    path: '/estado',
+    name: 'Estado',
+    component: EstadoVista,
   },
 ];
 

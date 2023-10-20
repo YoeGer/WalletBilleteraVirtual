@@ -14,30 +14,15 @@
         <li class="nav-item">
           <router-link class="nav-link" to="/historial">Historial</router-link>
         </li>
+        <li class="nav-item">
+          <router-link class="nav-link" to="/estado">Estado</router-link>
+        </li>
       </ul>
     </nav>
     <router-view></router-view>
   </div>
 </template>
-<script>
-export default {
-  computed: {
-    //En la Api se guarda la hora en formato UTC, si no la formateo, cuando la recupero me lo hace con mi zona horaria y la cambia
-    formatearFecha() {
-      let opciones = {
-        year: 'numeric',
-        month: '2-digit',
-        day: '2-digit',
-        hour: '2-digit',
-        minute: '2-digit',
-        timeZone: 'UTC',
-      };
-      let fechaYHoraUTC = new Date(this.movimiento.datetime);
-      return fechaYHoraUTC.toLocaleString('es-ES', opciones);
-    },
-  },
-};
-</script>
+<script></script>
 
 <style>
 #logo {
