@@ -13,6 +13,7 @@
 import Consultas from '@/servicios/Consultas.js';
 import FormularioComponente from '@/components/FormularioComponente.vue';
 import routes from '@/router/index.js';
+import { mapState } from 'vuex';
 export default {
   name: 'RegistroVista',
   components: {
@@ -32,11 +33,13 @@ export default {
       popupFormVisible: false,
     };
   },
+  computed: {
+    ...mapState(['user_id']),
+  },
   methods: {
     registrarTransaccion(movimiento) {
-      console.log(movimiento);
       Consultas.guardarTransacciones({
-        user_id: 'Yoana',
+        user_id: this.user_id,
         action: movimiento.transaccion,
         crypto_code: movimiento.cripto,
         crypto_amount: movimiento.cantidad.toString(),

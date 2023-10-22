@@ -2,7 +2,6 @@
   <div class="row justify-content-center" v-if="movimiento">
     <div class="col-6">
       <form @submit.prevent>
-        <!--Prevent: modificador que previene el comportamiento por defecto del nav de refrescar-->
         <br />
         <label class="mb-1">Selecciona el tipo de transaccion</label>
         <select
@@ -135,33 +134,26 @@ export default {
   },
   methods: {
     async enviarForm() {
-      //Llevo la lista de errores a cero
       this.errores = [];
-      //Valido que los ingresos de cantidad o de precio no tengas coma, de tenerla la cambio a punto
       if (this.motivo === 'editarTransaccion' || this.motivo === 'registrarTransaccion') {
         this.validarPuntos();
       }
-      //Si voy a registrar transaccion valido que si quiere vender tenga disponibilidad de esa criptomoneda
       if (this.motivo === 'registrarTransaccion') {
         if (this.movimiento.transaccion === 'sale') {
           await this.validarVentaParaRegistro();
         }
       }
-      //Si voy a editar un movimiento valido que si quiere editar una venta tenga disponibilidad de esa cripto
       if (this.motivo === 'editarTransaccion') {
         await this.validarVentaParaEditar();
       }
-      //Otras validaciones
       this.validarCamposCompletos();
       this.validarValoresNegativos();
       this.validarFecha();
-      //Si hay errores sale de la funcion enviarForm, sino sigue
       if (this.errores.length > 0) {
-        let mensaje = 'Errores:\n' + this.errores.join('\n'); // Concatenamos los errores en un solo mensaje
+        let mensaje = 'Errores:\n' + this.errores.join('\n');
         alert(mensaje);
         return;
       }
-      //Si no hubo errores emite metodos de acuerdo a su motivo, si registro o si modifico
       if (this.motivo === 'registrarTransaccion') {
         this.$emit('envioForm', this.movimiento);
       } else if (this.motivo === 'editarTransaccion') {

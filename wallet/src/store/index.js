@@ -1,15 +1,12 @@
 import { createStore } from 'vuex';
 
 export default createStore({
-  state: {},
-  getters: {
-    //Para acceder a los estados
+  state: {
+    user_id: '',
   },
   mutations: {
-    //Para hacer un cambio en el estado
+    establecerId(state, user_id) {
+      state.user_id = user_id;
+    },
   },
-  actions: {
-    //Para consumir una API
-  },
-  modules: {},
 });
