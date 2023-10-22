@@ -1,5 +1,5 @@
 <template>
-  <div class="row justify-content-center">
+  <div class="row justify-content-center" v-if="user_id === ''">
     <div class="col-4">
       <form>
         <img class="mb-4 img-fluid" src="../assets/logo-wallet.png" id="logoGrande" />
@@ -36,10 +36,7 @@ export default {
   },
   methods: {
     ingresar() {
-      if (
-        this.user_idIngresado.length < 10 ||
-        !this.esAlfanumericoConLetraYNumero(this.user_idIngresado)
-      ) {
+      if (!this.esAlfanumericoConLetraYNumero(this.user_idIngresado)) {
         alert(
           'Nombre de usuario incorrecto. Debe ser alfanumerico y tener como minimo 10 caracteres'
         );
@@ -50,10 +47,7 @@ export default {
       }
     },
     esAlfanumericoConLetraYNumero(cadena) {
-      // Utiliza una expresión regular insensible a mayúsculas y minúsculas para validar
-      const regex = /^[a-zA-Z0-9]+$/i;
-
-      // Comprueba si la cadena tiene al menos 10 caracteres y si cumple con la expresión regular
+      const regex = /(?=.*[a-zA-Z])(?=.*[0-9])/;
       return cadena.length >= 10 && regex.test(cadena);
     },
   },
